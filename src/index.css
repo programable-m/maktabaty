@@ -1,0 +1,197 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --font-heading: "Changa", "IBM Plex Sans Arabic", system-ui, sans-serif;
+
+  /* Ink & parchment — warm paper ground, deep navy ink (lifted from the logo) */
+  --color-cream: #f7f1e3;
+  --color-cream-deep: #efe3c4;
+  --color-paper: #fffdf7;
+  --color-ink: #1a2036;
+  --color-ink-soft: #454f6b;
+  --color-navy: #142248;
+  --color-navy-deep: #0c1730;
+
+  /* Brass / gold — the logo's gilding, used sparingly as the accent */
+  --color-gold: #b6862f;
+  --color-gold-deep: #8a621d;
+  --color-gold-light: #e3c789;
+  --color-gold-pale: #f2e6c4;
+
+  /* Functional */
+  --color-whatsapp: #25d366;
+  --color-whatsapp-dark: #128c7e;
+  --color-brick: #ab3b2b;
+  --color-brick-deep: #7e2a1f;
+  --color-border: #e1d3ab;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    color: var(--color-ink);
+    background: var(--color-cream);
+    font-family: var(--font-sans);
+    direction: rtl;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+  }
+  * {
+    border-color: var(--color-border);
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-gold-deep);
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-4 text-base font-bold text-white rounded-2xl transition-all duration-200 focus:outline-none;
+    background: linear-gradient(180deg, #29d96b 0%, var(--color-whatsapp) 55%, var(--color-whatsapp-dark) 100%);
+    box-shadow: 0 10px 24px -8px rgba(18, 140, 126, 0.5), inset 0 1px 0 rgba(255,255,255,0.35);
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 28px -8px rgba(18, 140, 126, 0.58), inset 0 1px 0 rgba(255,255,255,0.35);
+  }
+  .btn-primary:active {
+    transform: translateY(0px) scale(0.98);
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 text-base font-semibold rounded-2xl border-2 transition-all duration-200 focus:outline-none;
+    color: var(--color-navy);
+    border-color: var(--color-navy);
+    background: transparent;
+  }
+  .btn-secondary:hover {
+    background: var(--color-navy);
+    color: var(--color-cream);
+  }
+
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 text-base font-bold rounded-2xl transition-all duration-200 focus:outline-none text-white;
+    background: linear-gradient(180deg, var(--color-gold-light), var(--color-gold) 60%, var(--color-gold-deep));
+    box-shadow: 0 8px 18px -8px rgba(138, 98, 29, 0.55);
+  }
+  .btn-gold:hover {
+    transform: translateY(-1px);
+  }
+
+  /* Signature element: the "school-list slip" — echoes the torn receipt/list
+     that's the literal object at the center of the whole service. */
+  .list-card {
+    position: relative;
+    background: var(--color-paper);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(26,32,54,0.04), 0 16px 30px -18px rgba(26,32,54,0.35);
+  }
+  .list-card::after {
+    content: "";
+    position: absolute;
+    left: 2px;
+    right: 2px;
+    bottom: -8px;
+    height: 15px;
+    background-image:
+      linear-gradient(-45deg, var(--color-cream) 7px, transparent 0),
+      linear-gradient(45deg, var(--color-cream) 7px, transparent 0);
+    background-position: bottom;
+    background-size: 15px 15px;
+    background-repeat: repeat-x;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-sm font-bold tracking-wide;
+    color: var(--color-gold-deep);
+  }
+  .eyebrow::before {
+    content: "";
+    width: 20px;
+    height: 2px;
+    background: var(--color-gold);
+    display: inline-block;
+  }
+
+  .section-alt {
+    background: var(--color-cream-deep);
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3.5 text-base rounded-xl bg-white placeholder:text-gray-400 focus:outline-none transition-all duration-200;
+    border: 2px solid var(--color-border);
+  }
+  .input-field:focus {
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 3px rgba(182,134,47,0.15);
+  }
+
+  .section-title {
+    @apply text-3xl md:text-[2.6rem] font-extrabold text-center mb-4 leading-tight;
+    color: var(--color-navy);
+  }
+  .section-subtitle {
+    @apply text-base md:text-lg text-center max-w-2xl mx-auto mb-12;
+    color: var(--color-ink-soft);
+  }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes stitch-in {
+  from { stroke-dashoffset: 400; }
+  to { stroke-dashoffset: 0; }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+.animate-float-soft {
+  animation: float-soft 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up, .animate-float-soft {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  html { scroll-behavior: auto; }
+  * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+
+input[type="file"]::file-selector-button {
+  display: none;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold-light);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold);
+}
